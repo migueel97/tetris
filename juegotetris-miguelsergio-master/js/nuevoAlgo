@@ -1,0 +1,93 @@
+function nuevaPieza(){
+    var nuevaPieza = Math.random();
+    if(nuevaPieza<=0.143){
+        nuevaPieza=Z;
+    }else if(nuevaPieza>=0.143 && nuevaPieza<=0.286){
+        nuevaPieza=I;
+    }else if(nuevaPieza>=0.286 && nuevaPieza<=0.429){
+        nuevaPieza=S;
+    }else if(nuevaPieza>=0.429 && nuevaPieza<=0.572){
+        nuevaPieza=T;
+    }else if(nuevaPieza>=0.572 && nuevaPieza<=0.715){
+        nuevaPieza=O;
+    }else if(nuevaPieza>=0.715 && nuevaPieza<=0.858){
+        nuevaPieza=L;
+    }else{
+        nuevaPieza=J;
+    }
+    return nuevaPieza;
+}
+
+function comprobarLineas(){
+    let cont = 0;
+    for (let i = FILAS-1; i >= 0; i--){
+        for(let j = COLUMNAS-1; j >= 0; j--){
+            if(getColor(i, j)!="white"){
+                cont++;
+            }
+            if (cont==10){
+                borrarLinea(i);
+            }
+        }
+        cont=0;
+    }
+}
+
+function borrarLinea(fila){
+    for(let i = fila; i >= 0; i--){
+        for(let j = 0; j <= 0; j++){
+            setCasilla(i, j, getCasilla(i-1, j));
+        }
+    }
+    score+=50;
+}
+
+function setCasilla(fila, columna, color){
+    ctx.fillStyle = color;
+    ctx.fillRect(x * SQ, y * SQ, SQ, SQ);
+}
+
+function getCasilla(fila, columna){
+    return ctx.getImageData(c*SQ, f*SQ, SQ, SQ);
+}
+
+function comenzarCaida(){
+    setInterval('caer()', 1000);
+}
+
+function rellenarPieza(){
+
+    pieza=this.tetromino;
+
+    for(let i = 0; i<pieza[0][0].length; i++){
+        if(pieza[0][0][i]==1){
+            filaNoVacia==true;
+        }
+    }
+    
+    if(filaNoVacia==false){
+        for(let i=0; i<pieza[1].length; i++){
+            for(let j=0; i<pieza[1][i].length;j++){
+                if(pieza[1][i][j]==1){
+                    setCasilla(j+3, i, color);
+                }
+            }
+        }
+    }else{
+        for(let i=0; i<pieza[0].length; i++){
+            for(let j=0; i<pieza[0][i].length;j++){
+                if(pieza[0][i][j]==1){
+                    setCasilla(j+3, i, color);
+                }
+            }
+        }
+    }
+
+}
+
+
+function colision(x, y, pieza){
+    
+}
+
+
